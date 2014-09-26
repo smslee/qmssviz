@@ -46,12 +46,13 @@ total_nurses <- aggregate(num_nurses_fulltime~state, data=newdata2, sum, na.rm=F
 colnames(total_nurses) <- c("state", "total_nurses")
 newdata3 <- merge(newdata2, total_nurses, by="state", all=TRUE)
 
-unique(newdata2$state)
-
 total_doctors <- aggregate(num_doctors_fulltime ~ state, data=newdata2, sum, na.rm=FALSE)
-colnames(total_doctors) <- c("state", "total_nurses")
-newdata3 <- merge(newdata2, total_nurses, by="state")
+colnames(total_doctors) <- c("state", "total_doctors")
+newdata4 <- merge(newdata3, total_doctors, by="state")
 
 # - Sort the resulting dataset by state population, in descending order.
+newdata5 <- newdata4[order(newdata4$pop_2006, decreasing=TRUE),]
+row.names(newdata5) <- NULL
 
 # - Show the results!
+head(newdata5)
